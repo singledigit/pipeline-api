@@ -1,0 +1,27 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Pipleine service example
+
+Resources:
+  PipelineService:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: pipeline-service-index
+      Policies: AWSLambdaFullAccess
+      Handler: index.handler
+      Runtime: nodejs6.10
+      CodeUri: ./.webpack
+      Events:
+        PipelineServiceAPI:
+          Type: Api
+          Properties:
+            Path: /
+            Method: GET
+
+Outputs:
+  PipelineServiceUrl:
+    Value: !Sub
+      - https://${id}.execute-api.us-east-1.amazonaws.com/Prod/
+      - {id: !Ref ServerlessRestApi}
+    Export:
+      Name: PipelineService::ApiUrl
