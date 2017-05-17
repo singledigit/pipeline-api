@@ -147,4 +147,6 @@ Resources:
         EnvironmentVariables:
           - Name: SERVICE
             Value: !Ref Service
+          - Name: BUCKET
+            Value: !Ref BuildArtifactsBucket
       ServiceRole: !Ref BuildRole
