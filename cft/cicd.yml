@@ -121,7 +121,7 @@ Resources:
                 Capabilities: CAPABILITY_IAM
                 RoleArn: !GetAtt BuildRole.Arn
                 StackName: !Ref Service
-                TemplatePath: BuiltOutput::package-service.yml
+                TemplatePath: BuiltOutput::service-packaged.yml
               RunOrder: 1
             - Name: ExecuteChangeset
               ActionTypeId:
