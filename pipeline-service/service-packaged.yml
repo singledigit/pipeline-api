@@ -12,7 +12,7 @@ Outputs:
 Resources:
   PipelineService:
     Properties:
-      CodeUri: s3://singledigit-dev-uploads/463b08de3827fe04c60764a23ac665a8
+      CodeUri: s3://pipeline-service-cicd-buildartifactsbucket-1mbxjqkwuyew3/7e0a864504082fa987bd2608700d3715
       Events:
         PipelineServiceAPI:
           Properties:

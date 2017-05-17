@@ -23,6 +23,9 @@ Resources:
   BuildArtifactsBucket:
     Type: "AWS::S3::Bucket"
 
+  PackageArtifactsBucket:
+    Type: "AWS::S3::Bucket"
+
   BuildRole:
     Type: 'AWS::IAM::Role'
     Properties:
@@ -149,5 +152,5 @@ Resources:
           - Name: SERVICE
             Value: !Ref Service
           - Name: BUCKET
-            Value: !Ref BuildArtifactsBucket
+            Value: !Ref PackageArtifactsBucket
       ServiceRole: !Ref BuildRole
