@@ -19,5 +19,5 @@ phases:
       - cd $SERVICE && aws cloudformation package --template-file service.yml --s3-bucket $BUCKET --output-template-file service-packaged.yml
 artifacts:
   files:
-    - $SERVICE/*
+    - $SERVICE/.sam/*
   discard-paths: yes

@@ -8,11 +8,11 @@
 #### Packaging your service
 	aws cloudformation package --template-file service.yml \
 		--s3-bucket singledigit-dev-uploads \
-		--output-template-file service-packaged.yml \
+		--output-template-file ./.sam/package-service.yml \
 		--profile singledigit
 			
 #### Deploying your service
-	aws cloudformation deploy --template-file service-packaged.yml \
+	aws cloudformation deploy --template-file ./.sam/package-service.yml \
 		--stack-name pipeline-service \
 		--capabilities CAPABILITY_IAM \
 		--profile singledigit
