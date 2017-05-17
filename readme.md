@@ -1,4 +1,4 @@
-# Service Instructions
+# API Instructions
 
 ## Local Development
 
@@ -30,15 +30,15 @@
 		
 ##	CICD
 #### Create a bucket for CFT files in new environment
-	aws s3api create-bucket --bucket singledigit-demo-service-cft --profile demo
+	aws s3api create-bucket --bucket singledigit-demo-api-cft --profile demo
 
 #### Copy CFT files to bucket
-	aws s3 sync ./cft s3://singledigit-demo-service-cft --profile demo	
+	aws s3 sync ./cft s3://singledigit-demo-api-cft --profile demo	
 #### Creating the CICD pipeline
 	aws cloudformation create-stack \
 		--profile demo \
 		--stack-name pipeline-api-cicd \
-       --template-url=https://s3.amazonaws.com/singledigit-demo-service-cft/cicd.yml \
+       --template-url=https://s3.amazonaws.com/singledigit-demo-api-cft/cicd.yml \
        --capabilities=CAPABILITY_NAMED_IAM \
        --parameters ParameterKey=Service,ParameterValue=pipeline-service \
        ParameterKey=GitHubOwner,ParameterValue=singledigit \
