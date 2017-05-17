@@ -1,0 +1,23 @@
+version: 0.1
+
+phases:
+  install:
+    commands:
+      - echo "Global dependencies for $SERVICE should be installed here"
+      - sudo npm install -g webpack
+      - npm --prefix $SERVICE install $SERVICE
+  pre_build:
+    commands:
+      - echo "Running pre-build commands"
+  build:
+    commands:
+      - echo "Running build commands"
+      - cd $SERVICE && webpack
+  post_build:
+    commands:
+      - echo "Running post-build commands"
+      - aws cloudformation package --template-file service.yml --s3-bucket singledigit-dev-uploads --output-template-file service-packaged.yml
+artifacts:
+  files:
+    - $SERVICE/*
+  discard-paths: yes

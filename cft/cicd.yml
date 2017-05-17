@@ -1,7 +1,6 @@
 AWSTemplateFormatVersion: "2010-09-09"
 Description: Service CICD
 
-# Params
 Parameters:
   Service:
     Type: String
@@ -27,7 +26,7 @@ Resources:
   BuildRole:
     Type: 'AWS::IAM::Role'
     Properties:
-      RoleName: !Sub Client-CICD-BuildRole
+      RoleName: !Sub API-CICD-BuildRole
       AssumeRolePolicyDocument:
         Version: '2012-10-17'
         Statement:
@@ -86,7 +85,7 @@ Resources:
                 Branch: !Ref Branch
                 OAuthToken: !Ref Token
               RunOrder: 1
-        - Name: Build-Deploy
+        - Name: Build
           Actions:
             - Name: Build
               ActionTypeId:
@@ -101,12 +100,42 @@ Resources:
               Configuration:
                 ProjectName: !Ref BuildProject
               RunOrder: 1
+        - Name: Deploy
+          Actions:
+            - Name: CreateChangeSet
+              ActionTypeId:
+                Category: Deploy
+                Owner: AWS
+                Provider: CloudFormation
+                Version: 1
+              InputArtifacts:
+                - Name: BuiltOutput
+              Configuration:
+                ActionMode: CHANGE_SET_REPLACE
+                ChangeSetName: !Join [ -, [ !Ref Service, changeset ] ]
+                OutputFileName: !Join [ -, [ !Ref Service, output.json ] ]
+                Capabilities: CAPABILITY_IAM
+                RoleArn: !GetAtt BuildRole.Arn
+                StackName: !Ref Service
+                TemplatePath: BuiltOutput::service-packaged.yml
+              RunOrder: 1
+            - Name: ExecuteChangeset
+              ActionTypeId:
+                Category: Deploy
+                Owner: AWS
+                Provider: CloudFormation
+                Version: 1
+              Configuration:
+                ActionMode: CHANGE_SET_EXECUTE
+                ChangeSetName: !Join [ -, [ !Ref Service, changeset ] ]
+                StackName: !Ref Service
+              RunOrder: 2
 
   BuildProject:
     Type: "AWS::CodeBuild::Project"
     Properties:
-      Name: Client-CICD-Build-Project
-      Description: Build project for client CICD
+      Name: API-CICD-Build-Project
+      Description: Build project for API CICD
       Source:
         Type: CODEPIPELINE
       Artifacts:

@@ -35,13 +35,13 @@
 #### Copy CFT files to bucket
 	aws s3 sync ./cft s3://singledigit-demo-service-cft --profile demo	
 #### Creating the CICD pipeline
-	aws cloudformation update-stack \
+	aws cloudformation create-stack \
 		--profile demo \
-		--stack-name pipeline-client-cicd \
+		--stack-name pipeline-api-cicd \
        --template-url=https://s3.amazonaws.com/singledigit-demo-service-cft/cicd.yml \
        --capabilities=CAPABILITY_NAMED_IAM \
        --parameters ParameterKey=Service,ParameterValue=pipeline-service \
        ParameterKey=GitHubOwner,ParameterValue=singledigit \
-       ParameterKey=Repo,ParameterValue=pipeline-client \
+       ParameterKey=Repo,ParameterValue=pipeline-api \
        ParameterKey=Branch,ParameterValue=master \
        ParameterKey=Token,ParameterValue=
