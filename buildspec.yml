@@ -16,7 +16,7 @@ phases:
   post_build:
     commands:
       - echo "Running post-build commands"
-      - aws cloudformation package --template-file service.yml --s3-bucket singledigit-dev-uploads --output-template-file service-packaged.yml
+      - aws cloudformation package --template-file service.yml --s3-bucket $BUCKET --output-template-file service-packaged.yml
 artifacts:
   files:
     - $SERVICE/*
