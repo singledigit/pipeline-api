@@ -59,6 +59,7 @@ Resources:
                   - 'lambda:*'
                   - "iam:*"
                   - "codepipeline:*"
+                  - "apigateway:*"
                 Resource: '*'
 
   BuildPipeLine:
