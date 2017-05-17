@@ -26,7 +26,7 @@ Resources:
   BuildRole:
     Type: 'AWS::IAM::Role'
     Properties:
-      RoleName: !Sub API-CICD-BuildRole
+      RoleName: !Sub ${Service}-BuildRole
       AssumeRolePolicyDocument:
         Version: '2012-10-17'
         Statement:
@@ -40,7 +40,7 @@ Resources:
             Action:
               - 'sts:AssumeRole'
       Policies:
-        - PolicyName: FAWSTrackerDeployPolicy
+        - PolicyName: !Sub ${Service}DeployPolicy
           PolicyDocument:
             Version: '2012-10-17'
             Statement:
@@ -135,8 +135,8 @@ Resources:
   BuildProject:
     Type: "AWS::CodeBuild::Project"
     Properties:
-      Name: API-CICD-Build-Project
-      Description: Build project for API CICD
+      Name: !Sub ${Service}-Build-Project
+      Description: !Sub Build project for ${Service}
       Source:
         Type: CODEPIPELINE
       Artifacts:
