@@ -12,7 +12,7 @@ Outputs:
 Resources:
   PipelineService:
     Properties:
-      CodeUri: s3://singledigit-dev-uploads/ca8a15b9f506aa8653f1bfb09c265368
+      CodeUri: s3://singledigit-dev-uploads/7e0a864504082fa987bd2608700d3715
       Events:
         PipelineServiceAPI:
           Properties:

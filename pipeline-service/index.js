@@ -8,5 +8,5 @@ export const handler = (event, context, callback) => {
         },
     });
 
-    callback(null, done(null, { message: "It worked" }))
+    callback(null, done(null, { message: "It worked Like a charm" }))
 };
